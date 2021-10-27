@@ -22,6 +22,10 @@ where
             _phantom: PhantomData,
         }
     }
+
+    pub fn as_std_ref(this: Self) -> &'a T {
+        unsafe { &*this.ptr.as_ptr().as_wide_ptr() }
+    }
 }
 
 impl<'a, T, const BASE_ADDR: usize> Copy for Ref<'a, T, BASE_ADDR>

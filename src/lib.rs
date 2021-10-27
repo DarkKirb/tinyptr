@@ -1,12 +1,22 @@
 //! Small Pointer support crate
 #![no_std]
+#![cfg_attr(feature = "alloc", feature(allocator_api))]
 #![feature(mixed_integer_ops)]
+#![feature(ptr_internals)]
 #![feature(ptr_metadata)]
 
+#[cfg(feature = "alloc")]
+extern crate alloc;
+
+#[cfg(feature = "alloc")]
+mod alloc_integration;
 pub mod ptr;
 mod reference;
 pub mod util;
 
+#[cfg(feature = "alloc")]
+#[doc(inline)]
+pub use alloc_integration::*;
 #[doc(inline)]
 pub use reference::*;
 
